@@ -9,7 +9,7 @@ var rollbar = new Rollbar({
     captureUncaught: true,
     captureUnhandledRejections: true,
   })
-  
+  rollbar.log('Hello world!')
   
 
 app.use(express.json())
