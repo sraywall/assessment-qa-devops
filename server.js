@@ -15,6 +15,7 @@ var rollbar = new Rollbar({
 app.use(express.json())
 app.get('/', (req,res)=>{
     res.sendFile(path.join(__dirname,'./public/index.html'))
+    rollbar.info("html file served successfully");
 })
 app.get('/styles', (req,res)=>{
     res.sendFile(path.join(__dirname,'./public/index.css'))
@@ -28,6 +29,7 @@ app.get('/api/robots', (req, res) => {
         res.status(200).send(botsArr)
     } catch (error) {
         console.log('ERROR GETTING BOTS', error)
+        rollbar.error('ERROR GETTING BOTS', error)
         res.sendStatus(400)
     }
 })
@@ -40,6 +42,7 @@ app.get('/api/robots/five', (req, res) => {
         res.status(200).send({choices, compDuo})
     } catch (error) {
         console.log('ERROR GETTING FIVE BOTS', error)
+        rollbar.warning('ERROR GETTING FIVE BOTS', error)
         res.sendStatus(400)
     }
 })
@@ -71,6 +74,7 @@ app.post('/api/duel', (req, res) => {
         }
     } catch (error) {
         console.log('ERROR DUELING', error)
+        rollbar.critical('ERROR DUELING', error)
         res.sendStatus(400)
     }
 })
